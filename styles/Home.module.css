@@ -50,7 +50,7 @@
   padding: 0.85em 1.05em;
 }
 
-.button:active {
+.button:active:has(.buttonControls:not(:hover)) {
   filter: brightness(0.9);
 }
 
@@ -91,4 +91,69 @@
 .button:hover .buttonCommand {
   bottom: 10%;
   opacity: 1;
+}
+
+.buttonControls {
+  display: flex;
+  gap: .65em;
+  font-size: .65em;
+  position: absolute;
+  background-color: #7ea5cf;
+  padding: .3em .4em;
+  top: -.7em;
+  right: -.45em;
+  border-radius: .25em;
+  color: #FFFFFF99;
+  opacity: 0;
+  transition: opacity .2s, top .2s, filter .05s;
+  cursor: default;
+}
+
+.button:hover .buttonControls {
+  opacity: 1;
+  top: -.5em;
+}
+
+.button:active:has(.buttonControls:not(:hover)) .buttonControls {
+  filter: brightness(1.1);
+}
+
+.buttonControls>* {
+  transition: color .15s;
+  cursor: pointer;
+}
+
+.buttonControls>*:hover {
+  color: #FFF;
+}
+
+.addButton {
+  font-size: 4.8em;
+  color: #FFFFFFB3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: fit-content;
+  font-weight: 700;
+  border-radius: .2em;
+  border: 0.04em solid #FFFFFF16;
+  background-color: #5781af;
+  cursor: pointer;
+  user-select: none;
+  transition: filter .05s, color .2s;
+  padding: 0 0.27em;
+  vertical-align: middle;
+}
+
+.addButton:active {
+  filter: brightness(0.9);
+}
+
+.addButton:hover {
+  color: #FFF;
+}
+
+.addButtonPlus {
+  transform: translate(0, -0.06em);
 }

@@ -1,5 +1,7 @@
 import Head from "next/head";
+import Script from "next/script";
 import Button from "@/components/Button";
+import AddButton from "@/components/AddButton";
 import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
 
@@ -45,6 +47,13 @@ export default function Home() {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+
+            {/* import fontawesome */}
+            <Script
+                src="https://kit.fontawesome.com/c7b17cb045.js"
+                crossOrigin="anonymous"
+            ></Script>
+
             <main className={`${styles.main} ${inter.className}`}>
                 <h1 className={styles.title}>WebDash</h1>
                 <div className={styles.mainBox}>
@@ -59,6 +68,7 @@ export default function Home() {
                                 key={button.index}
                             />
                         ))}
+                        <AddButton />
                     </div>
                 </div>
             </main>
