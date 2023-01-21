@@ -4,6 +4,7 @@ import Button from "@/components/Button";
 import AddButton from "@/components/AddButton";
 import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
+import { useState, useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,24 +16,24 @@ export type ButtonType = {
     index: number;
 };
 
-const buttons = [
-    {
-        name: "Camera 1",
-        id: "button1",
-        command: "/say Hello World!",
-        color: "#5781af",
-        index: 1,
-    },
-    {
-        name: "Top View",
-        id: "button2",
-        command: "/tp @a[tag=cam] 58 108 9789898754",
-        color: "#5781af",
-        index: 2,
-    },
-] as ButtonType[];
-
 export default function Home() {
+    const [buttons, setButtons] = useState<ButtonType[]>([]);
+    useEffect(() => {
+        // run immediately
+        fetchData();
+        // fetch buttons from server twice a second
+        const interval = setInterval(fetchData, 500);
+        return () => clearInterval(interval);
+    }, []);
+
+    function fetchData() {
+        fetch(`/get`)
+            .then((res) => res.json())
+            .then((data) => {
+                setButtons(data.buttons);
+            });
+    }
+
     return (
         <>
             <Head>
