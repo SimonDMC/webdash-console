@@ -37,7 +37,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>Create Next App</title>
+                <title>WebDash</title>
                 <meta
                     name="description"
                     content="A Web Dashboard for your Minecraft server."
@@ -46,7 +46,7 @@ export default function Home() {
                     name="viewport"
                     content="width=device-width, initial-scale=1"
                 />
-                <link rel="icon" href="/favicon.ico" />
+                <link rel="icon" href="/favicon.png" />
             </Head>
 
             {/* import fontawesome */}
