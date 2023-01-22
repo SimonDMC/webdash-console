@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;750&display=swap');
+
+@font-face {
+  font-family: 'Minecraft';
+  src: url('https://simondmc.com/media/Minecraft.otf') format('opentype');
+}
+
 .main {
   display: flex;
   flex-direction: column;
@@ -7,6 +14,7 @@
   height: 100vh;
   width: 100vw;
   background-color: #232c35;
+  font-family: 'Inter', sans-serif;
 }
 
 .title {
@@ -64,9 +72,11 @@
 }
 
 .buttonCommand {
+  font-family: 'Minecraft', monospace;
   position: absolute;
   font-size: .45em;
-  font-weight: 300;
+  font-weight: 400;
+  letter-spacing: .01em;
   /* center horizontally */
   left: 50%;
   bottom: 0;

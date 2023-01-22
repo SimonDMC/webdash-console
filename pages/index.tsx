@@ -2,11 +2,8 @@ import Head from "next/head";
 import Script from "next/script";
 import Button from "@/components/Button";
 import AddButton from "@/components/AddButton";
-import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
 import { useState, useEffect } from "react";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export type ButtonType = {
     name: string;
@@ -46,7 +43,10 @@ export default function Home() {
                     name="viewport"
                     content="width=device-width, initial-scale=1"
                 />
-                <link rel="icon" href="/favicon.png" />
+                <link
+                    rel="icon"
+                    href="https://simondmc.com/media/webdash-favicon.png"
+                />
             </Head>
 
             {/* import fontawesome */}
@@ -55,7 +55,7 @@ export default function Home() {
                 crossOrigin="anonymous"
             ></Script>
 
-            <main className={`${styles.main} ${inter.className}`}>
+            <main className={styles.main}>
                 <h1 className={styles.title}>WebDash</h1>
                 <div className={styles.mainBox}>
                     <div className={styles.buttonWrapper}>
@@ -66,7 +66,7 @@ export default function Home() {
                                 command={button.command}
                                 color={button.color}
                                 index={button.index}
-                                key={button.index}
+                                key={button.id}
                             />
                         ))}
                         <AddButton />
