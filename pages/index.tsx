@@ -5,7 +5,7 @@ import AddButton from "@/components/AddButton";
 import styles from "@/styles/Home.module.css";
 import { useState, useEffect } from "react";
 
-export type ButtonType = {
+type ButtonType = {
     name: string;
     id: string;
     command: string;
@@ -30,6 +30,8 @@ export default function Home() {
                 setButtons(data.buttons);
             });
     }
+
+    // make fetchData accessible from everywhere
 
     return (
         <>
@@ -59,16 +61,22 @@ export default function Home() {
                 <h1 className={styles.title}>WebDash</h1>
                 <div className={styles.mainBox}>
                     <div className={styles.buttonWrapper}>
-                        {buttons.map((button) => (
-                            <Button
-                                name={button.name}
-                                id={button.id}
-                                command={button.command}
-                                color={button.color}
-                                index={button.index}
-                                key={button.id}
-                            />
-                        ))}
+                        {
+                            // sort buttons by index
+                            [...buttons]
+                                .sort((a, b) => a.index - b.index)
+                                .map((button) => (
+                                    <Button
+                                        name={button.name}
+                                        id={button.id}
+                                        command={button.command}
+                                        color={button.color}
+                                        index={button.index}
+                                        fetchData={fetchData}
+                                        key={button.id}
+                                    />
+                                ))
+                        }
                         <AddButton />
                     </div>
                 </div>

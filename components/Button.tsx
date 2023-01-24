@@ -1,12 +1,27 @@
-import { ButtonType } from "@/pages";
 import styles from "@/styles/Home.module.css";
 
-const Button = ({ name, id, command, color, index }: ButtonType) => {
+type ButtonProps = {
+    name: string;
+    id: string;
+    command: string;
+    color: string;
+    index: number;
+    fetchData: Function;
+};
+
+const Button = ({
+    name,
+    id,
+    command,
+    color,
+    index,
+    fetchData,
+}: ButtonProps) => {
     return (
         <div
             className={styles.button}
             style={{ backgroundColor: color }}
-            onClick={(e) => {
+            onClick={async (e) => {
                 // clicked edit button
                 if ((e.target as HTMLElement).className.includes("fa-pen")) {
                     console.log(`Button ${index} edit clicked`);
@@ -17,7 +32,12 @@ const Button = ({ name, id, command, color, index }: ButtonType) => {
                 if (
                     (e.target as HTMLElement).className.includes("fa-trash-can")
                 ) {
-                    console.log(`Button ${index} delete clicked`);
+                    await fetch(`/delete`, {
+                        method: "DELETE",
+                        body: id,
+                    });
+                    // refresh
+                    fetchData();
                     return;
                 }
 
@@ -29,9 +49,6 @@ const Button = ({ name, id, command, color, index }: ButtonType) => {
                 ) {
                     fetch(`/send`, {
                         method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
                         body: id,
                     });
                     console.log(`Button ${index} clicked`);
