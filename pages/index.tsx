@@ -16,10 +16,17 @@ type ButtonType = {
 export default function Home() {
     const [buttons, setButtons] = useState<ButtonType[]>([]);
     useEffect(() => {
+        let interval: NodeJS.Timer;
         // run immediately
         fetchData();
-        // fetch buttons from server twice a second
-        const interval = setInterval(fetchData, 500);
+        // figure out fetch period
+        fetch(`/period`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.info(`Fetching buttons every ${data.period}ms`);
+                // fetch buttons from server every period
+                interval = setInterval(fetchData, data.period);
+            });
         return () => clearInterval(interval);
     }, []);
 
