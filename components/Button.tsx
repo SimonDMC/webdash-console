@@ -51,7 +51,6 @@ const Button = ({
                         method: "POST",
                         body: id,
                     });
-                    console.log(`Button ${index} clicked`);
                 }
             }}
         >

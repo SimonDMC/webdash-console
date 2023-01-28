@@ -38,8 +38,6 @@ export default function Home() {
             });
     }
 
-    // make fetchData accessible from everywhere
-
     return (
         <>
             <Head>
