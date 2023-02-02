@@ -5,8 +5,9 @@ const Button = () => {
         <div
             className={styles.addButton}
             onClick={() => {
-                // TODO: open add popup
-                console.log(`Add button clicked`);
+                const el = document.querySelector(".popup.route-popup")!;
+                el.classList.remove("fade-out");
+                el.classList.add("fade-in");
             }}
         >
             <div className={styles.addButtonPlus}>+</div>

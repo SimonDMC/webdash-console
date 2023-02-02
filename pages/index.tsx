@@ -4,6 +4,12 @@ import Button from "@/components/Button";
 import AddButton from "@/components/AddButton";
 import styles from "@/styles/Home.module.css";
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+
+const DynamicComponentWithNoSSR = dynamic(
+    () => import("../components/PopupHandler"),
+    { ssr: false }
+);
 
 type ButtonType = {
     name: string;
@@ -38,6 +44,11 @@ export default function Home() {
             });
     }
 
+    function popupHide() {
+        // save button data
+        console.log("Saving button data...");
+    }
+
     return (
         <>
             <Head>
@@ -55,6 +66,8 @@ export default function Home() {
                     href="https://simondmc.com/media/webdash-favicon.png"
                 />
             </Head>
+
+            <DynamicComponentWithNoSSR popupHide={popupHide} />
 
             {/* import fontawesome */}
             <Script
