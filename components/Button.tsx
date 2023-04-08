@@ -1,4 +1,5 @@
 import styles from "@/styles/Home.module.css";
+import { baseUrl } from "@/pages/index";
 
 type ButtonProps = {
     name: string;
@@ -32,7 +33,7 @@ const Button = ({
                 if (
                     (e.target as HTMLElement).className.includes("fa-trash-can")
                 ) {
-                    await fetch(`/delete`, {
+                    await fetch(`${baseUrl}/delete`, {
                         method: "DELETE",
                         body: id,
                     });
@@ -47,7 +48,7 @@ const Button = ({
                         "buttonControls"
                     )
                 ) {
-                    fetch(`/send`, {
+                    fetch(`${baseUrl}/send`, {
                         method: "POST",
                         body: id,
                     });

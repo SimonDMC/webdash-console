@@ -6,10 +6,12 @@ import styles from "@/styles/Home.module.css";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
-const DynamicComponentWithNoSSR = dynamic(
-    () => import("../components/PopupHandler"),
-    { ssr: false }
-);
+//export const baseUrl = "http://localhost:26666";
+export const baseUrl = "";
+
+const Popup = dynamic(() => import("../components/PopupHandler"), {
+    ssr: false,
+});
 
 type ButtonType = {
     name: string;
@@ -26,7 +28,7 @@ export default function Home() {
         // run immediately
         fetchData();
         // figure out fetch period
-        fetch(`/period`)
+        fetch(`${baseUrl}/period`)
             .then((res) => res.json())
             .then((data) => {
                 console.info(`Fetching buttons every ${data.period}ms`);
@@ -37,7 +39,7 @@ export default function Home() {
     }, []);
 
     function fetchData() {
-        fetch(`/get`)
+        fetch(`${baseUrl}/get`)
             .then((res) => res.json())
             .then((data) => {
                 setButtons(data.buttons);
@@ -67,7 +69,7 @@ export default function Home() {
                 />
             </Head>
 
-            <DynamicComponentWithNoSSR popupHide={popupHide} />
+            <Popup fetchData={fetchData} />
 
             {/* import fontawesome */}
             <Script

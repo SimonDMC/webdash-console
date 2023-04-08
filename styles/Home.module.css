@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'Minecraft';
-  src: url('https://cdn.jsdelivr.net/gh/Mojang/web-theme-bootstrap@7.0.0/assets/fonts/MinecraftSeven.ttf') format('truetype');
+  src: url('https://simondmc.com/media/fonts/mc.otf') format('opentype');
 }
 
 .main {
@@ -73,9 +73,9 @@
 
 .buttonCommand {
   font-family: 'Minecraft', monospace;
+  font-weight: 400;
   position: absolute;
   font-size: .45em;
-  font-weight: 600;
   letter-spacing: .02em;
   /* center horizontally */
   left: 50%;
