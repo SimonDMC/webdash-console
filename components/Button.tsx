@@ -25,7 +25,34 @@ const Button = ({
             onClick={async (e) => {
                 // clicked edit button
                 if ((e.target as HTMLElement).className.includes("fa-pen")) {
-                    console.log(`Button ${index} edit clicked`);
+                    const el = document.querySelector(".popup.route-popup")!;
+                    el.classList.remove("fade-out");
+                    el.classList.add("fade-in");
+
+                    const nameEl = document.querySelector(
+                        ".popup.route-popup .name"
+                    )! as HTMLInputElement;
+                    nameEl.value = name;
+
+                    const commandEl = document.querySelector(
+                        ".popup.route-popup .command"
+                    )! as HTMLInputElement;
+                    commandEl.value = command;
+
+                    const colorEl = document.querySelector(
+                        ".popup.route-popup .color"
+                    )! as HTMLInputElement;
+                    colorEl.value = color;
+
+                    const idEl = document.querySelector(
+                        ".popup.route-popup .id"
+                    )!;
+                    idEl.innerHTML = id;
+
+                    const buttonLabel = document.querySelector(
+                        ".popup.route-popup .save"
+                    )!;
+                    buttonLabel.innerHTML = "Save";
                     return;
                 }
 

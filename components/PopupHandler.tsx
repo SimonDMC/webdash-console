@@ -161,13 +161,8 @@ export default function PopupHandler({ fetchData }: { fetchData: Function }) {
                     } else {
                         // editing a route
                         fetch(`${baseUrl}/edit`, {
-                            method: "PUT",
-                            body: JSON.stringify({
-                                id: id.innerHTML,
-                                name: name.value,
-                                command: command.value,
-                                color: color.value,
-                            }),
+                            method: "POST",
+                            body: `${id.innerHTML}§§§${name.value}§§§${command.value}§§§${color.value}`,
                         });
                         // refresh
                         fetchData();

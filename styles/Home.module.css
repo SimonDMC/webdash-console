@@ -23,6 +23,7 @@
   font-size: 6.8em;
   letter-spacing: -.035em;
   text-shadow: 0 0 .2em #00000066;
+  user-select: none;
 }
 
 .mainBox {
@@ -80,7 +81,7 @@
   /* center horizontally */
   left: 50%;
   bottom: 0;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(0.05em);
   color: #CECECE;
   background-color: #00000033;
   max-width: 90%;
@@ -88,10 +89,7 @@
   overflow-x: hidden;
   white-space: nowrap;
   overflow-y: hidden;
-  padding-top: .1em;
-  padding-bottom: .25em;
-  padding-left: .35em;
-  padding-right: .35em;
+  padding: .2em .35em;
   text-align: center;
   border-radius: .3em;
   opacity: 0;
