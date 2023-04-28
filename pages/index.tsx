@@ -6,8 +6,8 @@ import styles from "@/styles/Home.module.css";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
-//export const baseUrl = "http://localhost:26666";
-export const baseUrl = "";
+export const baseUrl = "http://localhost:26666";
+//export const baseUrl = "";
 
 const Popup = dynamic(() => import("../components/PopupHandler"), {
     ssr: false,
@@ -42,14 +42,60 @@ export default function Home() {
         fetch(`${baseUrl}/get`)
             .then((res) => res.json())
             .then((data) => {
-                setButtons(data.buttons);
+                const stateEl = document.querySelector(".invalid");
+                if (!stateEl || stateEl.innerHTML === "false") {
+                    setButtons(data.buttons);
+                } else {
+                    stateEl.innerHTML = "false";
+                }
             });
     }
 
-    function popupHide() {
-        // save button data
-        console.log("Saving button data...");
-    }
+    const [dragId, setDragId] = useState("");
+    const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
+        setDragId(e.currentTarget.id);
+    };
+
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+        const dragBtn = buttons.find((button) => button.id === dragId);
+        const dropBtn = buttons.find(
+            (button) => button.id === e.currentTarget.id
+        );
+
+        const dragBtnIndex = dragBtn!.index;
+        const dropBtnIndex = dropBtn!.index;
+
+        // send drag request to server
+        fetch(`${baseUrl}/drag`, {
+            method: "POST",
+            body: `${dragBtnIndex}§§§${dropBtnIndex}`,
+        });
+
+        // mark next incoming buttons as invalid (atrocious but react hooks don't work in setInterval)
+        document.querySelector(".invalid")!.innerHTML = "true";
+
+        const newBtnState = [...buttons];
+
+        // set dragged route after reordering
+        const draggedBtn = newBtnState.find((button) => button.id === dragId)!;
+
+        // reorder routes
+        if (dragBtnIndex < dropBtnIndex) {
+            // dragged route is below dropped route
+            for (let i = dragBtnIndex + 1; i <= dropBtnIndex; i++) {
+                newBtnState.find((button) => button.index === i)!.index--;
+            }
+        } else {
+            // dragged route is above dropped route
+            for (let i = dragBtnIndex - 1; i >= dropBtnIndex; i--) {
+                newBtnState.find((button) => button.index === i)!.index++;
+            }
+        }
+
+        draggedBtn.index = dropBtnIndex;
+
+        setButtons(newBtnState);
+    };
 
     return (
         <>
@@ -91,9 +137,10 @@ export default function Home() {
                                         id={button.id}
                                         command={button.command}
                                         color={button.color}
-                                        index={button.index}
                                         fetchData={fetchData}
                                         key={button.id}
+                                        handleDrag={handleDrag}
+                                        handleDrop={handleDrop}
                                     />
                                 ))
                         }

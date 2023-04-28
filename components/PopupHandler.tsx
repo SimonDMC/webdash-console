@@ -11,6 +11,7 @@ export default function PopupHandler({ fetchData }: { fetchData: Function }) {
             row§{popup-label}[Command:]<input class="command popup-input">
             row§{popup-label}[Color:]<input class="color popup-input" type="color">
             id§id-placeholder
+            invalid§false
             mid-row§{btn-save}[Save]
         </div>
         `,
@@ -118,6 +119,12 @@ export default function PopupHandler({ fetchData }: { fetchData: Function }) {
         /* Button ID */
 
         .id {
+            display: none;
+        }
+        
+        /* Invalid data carryover */
+        
+        .invalid {
             display: none;
         }`,
         loadCallback: () => {

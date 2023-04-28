@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'Minecraft';
-  src: url('https://simondmc.com/media/fonts/mc.otf') format('opentype');
+  src: url('https://cdn.jsdelivr.net/gh/Mojang/web-theme-bootstrap@92d9913110cf79db5813e6335f97c6dc689854ee/assets/fonts/Minecraft-Seven_v2.ttf') format('truetype');
 }
 
 .main {
@@ -89,7 +89,7 @@
   overflow-x: hidden;
   white-space: nowrap;
   overflow-y: hidden;
-  padding: .2em .35em;
+  padding: .1em .35em .3em .35em;
   text-align: center;
   border-radius: .3em;
   opacity: 0;

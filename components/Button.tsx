@@ -6,8 +6,9 @@ type ButtonProps = {
     id: string;
     command: string;
     color: string;
-    index: number;
     fetchData: Function;
+    handleDrag: Function;
+    handleDrop: Function;
 };
 
 const Button = ({
@@ -15,12 +16,18 @@ const Button = ({
     id,
     command,
     color,
-    index,
     fetchData,
+    handleDrag,
+    handleDrop,
 }: ButtonProps) => {
     return (
         <div
             className={styles.button}
+            id={id}
+            draggable="true"
+            onDragStart={(e) => handleDrag(e)}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => handleDrop(e)}
             style={{ backgroundColor: color }}
             onClick={async (e) => {
                 // clicked edit button
