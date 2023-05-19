@@ -1,5 +1,5 @@
 import styles from "@/styles/Home.module.css";
-import { baseUrl } from "@/pages/index";
+import { baseUrl, key } from "@/pages/index";
 
 type ButtonProps = {
     name: string;
@@ -70,6 +70,9 @@ const Button = ({
                     await fetch(`${baseUrl}/delete`, {
                         method: "DELETE",
                         body: id,
+                        headers: {
+                            Authorization: key,
+                        },
                     });
                     // refresh
                     fetchData();
@@ -85,6 +88,9 @@ const Button = ({
                     fetch(`${baseUrl}/send`, {
                         method: "POST",
                         body: id,
+                        headers: {
+                            Authorization: key,
+                        },
                     });
                 }
             }}

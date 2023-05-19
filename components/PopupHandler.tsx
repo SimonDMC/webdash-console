@@ -1,5 +1,5 @@
 import Popup from "@/lib/popup";
-import { baseUrl } from "@/pages";
+import { baseUrl, key } from "@/pages";
 
 export default function PopupHandler({ fetchData }: { fetchData: Function }) {
     new Popup({
@@ -162,6 +162,9 @@ export default function PopupHandler({ fetchData }: { fetchData: Function }) {
                         fetch(`${baseUrl}/add`, {
                             method: "POST",
                             body: `${name.value}§§§${command.value}§§§${color.value}`,
+                            headers: {
+                                Authorization: key,
+                            },
                         });
                         // refresh
                         fetchData();
@@ -170,6 +173,9 @@ export default function PopupHandler({ fetchData }: { fetchData: Function }) {
                         fetch(`${baseUrl}/edit`, {
                             method: "POST",
                             body: `${id.innerHTML}§§§${name.value}§§§${command.value}§§§${color.value}`,
+                            headers: {
+                                Authorization: key,
+                            },
                         });
                         // refresh
                         fetchData();

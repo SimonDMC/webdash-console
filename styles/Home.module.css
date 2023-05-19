@@ -169,3 +169,19 @@
 .addButtonPlus {
   transform: translate(0, -0.06em);
 }
+
+/* unauthorized page */
+
+.unauthorized {
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 2.5em;
+  text-align: center;
+}
+
+.unauthCode {
+  font-family: 'Minecraft', monospace;
+  background-color: #00000055;
+  padding: .2em;
+  border-radius: .2em;
+}

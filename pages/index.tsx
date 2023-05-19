@@ -6,8 +6,9 @@ import styles from "@/styles/Home.module.css";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
-export const baseUrl = "http://localhost:26666";
-//export const baseUrl = "";
+//export const baseUrl = "http://localhost:26666";
+export const baseUrl = "";
+export let key = "";
 
 const Popup = dynamic(() => import("../components/PopupHandler"), {
     ssr: false,
@@ -25,10 +26,16 @@ export default function Home() {
     const [buttons, setButtons] = useState<ButtonType[]>([]);
     useEffect(() => {
         let interval: NodeJS.Timer;
+        // store key
+        key = new URLSearchParams(window.location.search).get("key") ?? "";
         // run immediately
         fetchData();
         // figure out fetch period
-        fetch(`${baseUrl}/period`)
+        fetch(`${baseUrl}/period`, {
+            headers: {
+                Authorization: key,
+            },
+        })
             .then((res) => res.json())
             .then((data) => {
                 console.info(`Fetching buttons every ${data.period}ms`);
@@ -39,8 +46,19 @@ export default function Home() {
     }, []);
 
     function fetchData() {
-        fetch(`${baseUrl}/get`)
-            .then((res) => res.json())
+        fetch(`${baseUrl}/get`, {
+            headers: {
+                Authorization: key,
+            },
+        })
+            .then((res) => {
+                if (res.status === 401) {
+                    // refresh page if unauthorized
+                    window.location.reload();
+                } else {
+                    return res.json();
+                }
+            })
             .then((data) => {
                 const stateEl = document.querySelector(".invalid");
                 if (!stateEl || stateEl.innerHTML === "false") {
@@ -69,6 +87,9 @@ export default function Home() {
         fetch(`${baseUrl}/drag`, {
             method: "POST",
             body: `${dragBtnIndex}§§§${dropBtnIndex}`,
+            headers: {
+                Authorization: key,
+            },
         });
 
         // mark next incoming buttons as invalid (atrocious but react hooks don't work in setInterval)
