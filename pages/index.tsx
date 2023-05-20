@@ -5,6 +5,7 @@ import AddButton from "@/components/AddButton";
 import styles from "@/styles/Home.module.css";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import WebDashHead from "@/components/WebDashHead";
 
 //export const baseUrl = "http://localhost:26666";
 export const baseUrl = "";
@@ -120,22 +121,7 @@ export default function Home() {
 
     return (
         <>
-            <Head>
-                <title>WebDash</title>
-                <meta
-                    name="description"
-                    content="A Web Dashboard for your Minecraft server."
-                />
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1"
-                />
-                <link
-                    rel="icon"
-                    href="https://simondmc.com/media/webdash-favicon.png"
-                />
-            </Head>
-
+            <WebDashHead />
             <Popup fetchData={fetchData} />
 
             {/* import fontawesome */}
