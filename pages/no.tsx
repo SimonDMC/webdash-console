@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
+import { copy } from "@/lib/CopyCode";
 
 export default function Home() {
     return (
@@ -23,8 +24,13 @@ export default function Home() {
             <main className={styles.main}>
                 <p className={styles.unauthorized}>
                     This dashboard is key-protected. To view it, run{" "}
-                    <span className={styles.unauthCode}>/webdash link</span>{" "}
+                    <span className={styles.copyCode} onClick={copy}>
+                        /webdash link
+                    </span>{" "}
                     in-game.
+                </p>
+                <p className={styles.copiedPopup} id="copied-popup">
+                    Copied!
                 </p>
             </main>
         </>

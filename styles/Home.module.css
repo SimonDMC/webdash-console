@@ -177,11 +177,31 @@
   font-family: 'Inter', sans-serif;
   font-size: 2.5em;
   text-align: center;
+  z-index: 1;
+  /* hide copied text behind */
+  background-color: inherit;
 }
 
-.unauthCode {
+.copyCode {
   font-family: 'Minecraft', monospace;
   background-color: #00000055;
   padding: .2em;
   border-radius: .2em;
+  cursor: pointer;
+  transition: background-color .2s, box-shadow .2s;
+}
+
+.copyCode:hover {
+  background-color: #00000077;
+  box-shadow: 0 0 0.2em #00000077;
+}
+
+.copiedPopup {
+  display: none;
+  position: absolute;
+  font-family: 'Minecraft', monospace;
+  font-size: 2.3em;
+  color: white;
+  text-align: center;
+  transition: transform .3s ease-out, opacity .3s;
 }
