@@ -10,7 +10,7 @@ export default function Home() {
                 <p className={styles.unauthorized}>
                     This dashboard is key-protected. To view it, run{" "}
                     <span className={styles.copyCode} onClick={copy}>
-                        /webdash link
+                        /webdash&nbsp;link
                     </span>{" "}
                     in-game.
                 </p>

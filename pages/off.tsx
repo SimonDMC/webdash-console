@@ -8,9 +8,9 @@ export default function Home() {
             <WebDashHead />
             <main className={styles.main}>
                 <p className={styles.dashboardOff}>
-                    <b>WebDash</b> is currently off. To enable it, run{" "}
+                    <b>WebDash</b> is currently disabled. To enable it, run{" "}
                     <span className={styles.copyCode} onClick={copy}>
-                        /webdash on
+                        /webdash&nbsp;on
                     </span>{" "}
                     in-game.
                 </p>

@@ -180,6 +180,7 @@
   z-index: 1;
   /* hide copied text behind */
   background-color: inherit;
+  max-width: 95vw;
 }
 
 .copyCode {

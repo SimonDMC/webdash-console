@@ -3,7 +3,9 @@ export function copy(ev: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
     const copiedPopup = document.getElementById("copied-popup");
 
     if (copiedPopup) {
-        navigator.clipboard.writeText(copyingEl.innerHTML);
+        navigator.clipboard.writeText(
+            copyingEl.innerHTML.replace(/&nbsp;/g, " ")
+        );
         const box = copyingEl.getBoundingClientRect();
         copiedPopup.style.top = `${box.top}px`;
         copiedPopup.style.left = `${box.left}px`;
