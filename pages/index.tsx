@@ -53,8 +53,8 @@ export default function Home() {
             },
         })
             .then((res) => {
-                if (res.status === 401) {
-                    // refresh page if unauthorized
+                // refresh page if unauthorized or forbidden
+                if (res.status === 401 || res.status === 403) {
                     window.location.reload();
                 } else {
                     return res.json();
