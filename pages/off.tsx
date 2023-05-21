@@ -1,8 +1,28 @@
 import styles from "@/styles/Home.module.css";
 import { copy } from "@/lib/CopyCode";
 import WebDashHead from "@/components/WebDashHead";
+import { useEffect } from "react";
+import { baseUrl } from ".";
 
 export default function Home() {
+    useEffect(() => {
+        let interval: NodeJS.Timer;
+        fetch(`${baseUrl}/period`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.info(`Fetching buttons every ${data.period}ms`);
+                // fetch buttons from server every period
+                interval = setInterval(() => {
+                    fetch(`${baseUrl}/get`).then((res) => {
+                        // refresh page if successful
+                        if (res.status === 200) {
+                            window.location.reload();
+                        }
+                    });
+                }, data.period);
+            });
+        return () => clearInterval(interval);
+    }, []);
     return (
         <>
             <WebDashHead />

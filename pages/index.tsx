@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Script from "next/script";
 import Button from "@/components/Button";
 import AddButton from "@/components/AddButton";
@@ -32,11 +31,7 @@ export default function Home() {
         // run immediately
         fetchData();
         // figure out fetch period
-        fetch(`${baseUrl}/period`, {
-            headers: {
-                Authorization: key,
-            },
-        })
+        fetch(`${baseUrl}/period`)
             .then((res) => res.json())
             .then((data) => {
                 console.info(`Fetching buttons every ${data.period}ms`);
