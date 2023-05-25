@@ -44,7 +44,6 @@
 
 .button {
   font-size: 2em;
-  color: white;
   display: flex;
   width: fit-content;
   height: fit-content;
@@ -57,6 +56,14 @@
   transition: filter .05s;
   position: relative;
   padding: 0.85em 1.05em;
+}
+
+.whiteButton {
+  color: white;
+}
+
+.blackButton {
+  color: black;
 }
 
 .button:active:has(.buttonControls:not(:hover)) {

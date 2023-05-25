@@ -20,9 +20,24 @@ const Button = ({
     handleDrag,
     handleDrop,
 }: ButtonProps) => {
+    function getColor() {
+        let colorPortion = color.substring(1);
+        let numColor = parseInt(colorPortion, 16);
+        // if brightness is less than 80%, text is white
+        if (
+            (numColor >> 16) * 0.299 +
+                ((numColor >> 8) & 0x00ff) * 0.587 +
+                (numColor & 0x0000ff) * 0.114 <
+            255 * 0.8
+        ) {
+            return styles.whiteButton;
+        }
+        return styles.blackButton;
+    }
+
     return (
         <div
-            className={styles.button}
+            className={`${styles.button} ${getColor()}`}
             id={id}
             draggable="true"
             onDragStart={(e) => handleDrag(e)}
