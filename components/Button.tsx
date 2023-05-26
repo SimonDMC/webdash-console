@@ -1,5 +1,6 @@
 import styles from "@/styles/Home.module.css";
 import { baseUrl, key } from "@/pages/index";
+import { addBrightness } from "@/lib/ColorUtil";
 
 type ButtonProps = {
     name: string;
@@ -20,30 +21,65 @@ const Button = ({
     handleDrag,
     handleDrop,
 }: ButtonProps) => {
-    function getColor() {
+    function getButtonColor() {
+        if (isLight()) {
+            return styles.blackButton;
+        }
+        return styles.whiteButton;
+    }
+
+    function getCommandColor() {
+        if (isLight()) {
+            return styles.darkCommand;
+        }
+        return styles.lightCommand;
+    }
+
+    function getBorderColor() {
+        if (isLight()) {
+            // remove 10% of color
+            return addBrightness(color, -25);
+        }
+        // add 10% of color
+        return addBrightness(color, 25);
+    }
+
+    function getControlsColor() {
+        if (isLight()) {
+            // remove 20% of color
+            return addBrightness(color, -51);
+        }
+        // add 20% of color
+        return addBrightness(color, 51);
+    }
+
+    function isLight() {
         let colorPortion = color.substring(1);
         let numColor = parseInt(colorPortion, 16);
-        // if brightness is less than 80%, text is white
+        // if brightness is more than 80%
         if (
             (numColor >> 16) * 0.299 +
                 ((numColor >> 8) & 0x00ff) * 0.587 +
-                (numColor & 0x0000ff) * 0.114 <
+                (numColor & 0x0000ff) * 0.114 >
             255 * 0.8
         ) {
-            return styles.whiteButton;
+            return true;
         }
-        return styles.blackButton;
+        return false;
     }
 
     return (
         <div
-            className={`${styles.button} ${getColor()}`}
+            className={`${styles.button} ${getButtonColor()}`}
             id={id}
             draggable="true"
             onDragStart={(e) => handleDrag(e)}
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => handleDrop(e)}
-            style={{ backgroundColor: color }}
+            style={{
+                backgroundColor: color,
+                border: `0.1em solid ${getBorderColor()}`,
+            }}
             onClick={async (e) => {
                 // clicked edit button
                 if ((e.target as HTMLElement).className.includes("fa-pen")) {
@@ -111,8 +147,15 @@ const Button = ({
             }}
         >
             <p className={styles.buttonName}>{name}</p>
-            <p className={styles.buttonCommand}>{command}</p>
-            <div className={styles.buttonControls}>
+            <p className={`${styles.buttonCommand} ${getCommandColor()}`}>
+                {command}
+            </p>
+            <div
+                className={styles.buttonControls}
+                style={{
+                    backgroundColor: getControlsColor(),
+                }}
+            >
                 <i className="fa-solid fa-pen"></i>
                 <i className="fa-regular fa-trash-can"></i>
             </div>

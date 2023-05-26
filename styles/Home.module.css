@@ -50,7 +50,6 @@
   font-weight: 700;
   letter-spacing: -.015em;
   border-radius: .65em;
-  border: 0.1em solid #FFFFFF16;
   cursor: pointer;
   user-select: none;
   transition: filter .05s;
@@ -89,7 +88,6 @@
   left: 50%;
   bottom: 0;
   transform: translateX(-50%) translateY(0.05em);
-  color: #CECECE;
   background-color: #00000033;
   max-width: 90%;
   text-overflow: ellipsis;
@@ -101,6 +99,14 @@
   border-radius: .3em;
   opacity: 0;
   transition: bottom .2s, opacity .2s;
+}
+
+.lightCommand {
+  color: #CECECE;
+}
+
+.darkCommand {
+  color: #525252;
 }
 
 .button:hover .buttonCommand {
