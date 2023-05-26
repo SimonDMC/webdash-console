@@ -29,6 +29,9 @@ export default function PopupHandler({ fetchData }: { fetchData: Function }) {
             align-items: flex-start;
             margin: 0 10%;
         }
+        .popup-content {
+            width: min(66vh, 90vw) !important;
+        }
         .popup-label {
             font-family: "Inter", sans-serif;
             font-weight: 500;

@@ -6,8 +6,8 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import WebDashHead from "@/components/WebDashHead";
 
-export const baseUrl = "http://localhost:26666";
-//export const baseUrl = "";
+//export const baseUrl = "http://localhost:26666";
+export const baseUrl = "";
 export let key = "";
 
 const Popup = dynamic(() => import("../components/PopupHandler"), {
