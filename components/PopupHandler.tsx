@@ -155,6 +155,14 @@ export default function PopupHandler({ fetchData }: { fetchData: Function }) {
                         ".popup.route-popup .id"
                     )!;
 
+                    // enforce fields
+                    if (
+                        name.value.trim() === "" ||
+                        command.value.trim() === ""
+                    ) {
+                        return;
+                    }
+
                     // remove leading slash
                     if (command.value.startsWith("/")) {
                         command.value = command.value.slice(1);
@@ -162,9 +170,13 @@ export default function PopupHandler({ fetchData }: { fetchData: Function }) {
 
                     // adding a route
                     if (saveButton.innerHTML === "Add") {
+                        const nameVal = name.value.trim();
+                        const commandVal = command.value.trim();
+                        const colorVal = color.value;
+
                         fetch(`${baseUrl}/add`, {
                             method: "POST",
-                            body: `${name.value}§§§${command.value}§§§${color.value}`,
+                            body: `${nameVal}§§§${commandVal}§§§${colorVal}`,
                             headers: {
                                 Authorization: key,
                             },
