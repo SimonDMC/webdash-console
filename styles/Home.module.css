@@ -33,6 +33,7 @@
   margin-bottom: 1.9em;
   border-radius: 1.2em;
   box-shadow: 0 0 .5em #00000088 inset;
+  position: relative;
 }
 
 .buttonWrapper {
@@ -180,6 +181,39 @@
 
 .addButtonPlus {
   transform: translate(0, -0.06em);
+}
+
+.zoomButtons {
+  position: absolute;
+  bottom: .3em;
+  right: .3em;
+  display: flex;
+  font-size: 3em;
+  font-weight: 700;
+  background-color: #3a444e;
+  border-radius: .3em;
+  line-height: .9em;
+  color: #69737e;
+  overflow: hidden;
+}
+
+.zoomButton {
+  padding: 0 .2em;
+  padding-bottom: .14em;
+  cursor: pointer;
+  user-select: none;
+  transition: color .2s, background-color .2s;
+}
+
+.zoomButton:hover {
+  color: #FFFFFF88;
+  background-color: #FFFFFF11;
+}
+
+.zoomDivider {
+  height: 1em;
+  width: 2px;
+  background-color: #333d46;
 }
 
 /* unauthorized page */

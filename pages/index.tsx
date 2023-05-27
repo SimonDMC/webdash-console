@@ -5,6 +5,8 @@ import styles from "@/styles/Home.module.css";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import WebDashHead from "@/components/WebDashHead";
+import { getZoomLevel } from "@/lib/LocalStorage";
+import ZoomButtons from "@/components/ZoomButtons";
 
 export const baseUrl = "http://localhost:26666";
 //export const baseUrl = "";
@@ -128,6 +130,10 @@ export default function Home() {
         setButtons(newBtnState);
     };
 
+    function rerender() {
+        setButtons([...buttons]);
+    }
+
     return (
         <>
             <WebDashHead />
@@ -142,7 +148,12 @@ export default function Home() {
             <main className={styles.main}>
                 <h1 className={styles.title}>WebDash</h1>
                 <div className={styles.mainBox}>
-                    <div className={styles.buttonWrapper}>
+                    <div
+                        className={styles.buttonWrapper}
+                        style={{
+                            fontSize: `${getZoomLevel()}em`,
+                        }}
+                    >
                         {
                             // sort buttons by index
                             [...buttons]
@@ -163,6 +174,7 @@ export default function Home() {
                         }
                         <AddButton />
                     </div>
+                    <ZoomButtons rerender={rerender} />
                 </div>
             </main>
         </>
