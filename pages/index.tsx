@@ -70,11 +70,25 @@ export default function Home() {
         setDragId(e.currentTarget.id);
     };
 
+    const [touchId, setTouchId] = useState("");
+    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+        const touch = e.targetTouches[0];
+        const target = document.elementFromPoint(touch.clientX, touch.clientY);
+        if (target instanceof HTMLDivElement) {
+            setTouchId(target.id);
+        }
+    };
+
     const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
         const dragBtn = buttons.find((button) => button.id === dragId);
-        const dropBtn = buttons.find(
-            (button) => button.id === e.currentTarget.id
-        );
+        const dropId =
+            e.nativeEvent instanceof MouseEvent ? e.currentTarget.id : touchId;
+
+        const dropBtn = buttons.find((button) => button.id === dropId);
+
+        if (!dragBtn || !dropBtn) {
+            return;
+        }
 
         const dragBtnIndex = dragBtn!.index;
         const dropBtnIndex = dropBtn!.index;
@@ -143,6 +157,7 @@ export default function Home() {
                                         key={button.id}
                                         handleDrag={handleDrag}
                                         handleDrop={handleDrop}
+                                        handleTouchMove={handleTouchMove}
                                     />
                                 ))
                         }

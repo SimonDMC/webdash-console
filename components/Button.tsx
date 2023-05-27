@@ -10,6 +10,7 @@ type ButtonProps = {
     fetchData: Function;
     handleDrag: Function;
     handleDrop: Function;
+    handleTouchMove: Function;
 };
 
 const Button = ({
@@ -20,6 +21,7 @@ const Button = ({
     fetchData,
     handleDrag,
     handleDrop,
+    handleTouchMove,
 }: ButtonProps) => {
     function getButtonColor() {
         if (isLight()) {
@@ -76,6 +78,10 @@ const Button = ({
             onDragStart={(e) => handleDrag(e)}
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => handleDrop(e)}
+            /* mobile */
+            onTouchStart={(e) => handleDrag(e)}
+            onTouchMove={(e) => handleTouchMove(e)}
+            onTouchEnd={(e) => handleDrop(e)}
             style={{
                 backgroundColor: color,
                 border: `0.1em solid ${getBorderColor()}`,
