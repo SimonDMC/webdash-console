@@ -38,19 +38,19 @@ const Button = ({
     function getBorderColor() {
         if (isLight()) {
             // remove 10% of color
-            return addBrightness(color, -25);
+            return addBrightness(color, -255 * 0.1);
         }
         // add 10% of color
-        return addBrightness(color, 25);
+        return addBrightness(color, 255 * 0.1);
     }
 
     function getControlsColor() {
         if (isLight()) {
-            // remove 20% of color
-            return addBrightness(color, -51);
+            // remove 15% of color
+            return addBrightness(color, -255 * 0.15);
         }
-        // add 20% of color
-        return addBrightness(color, 51);
+        // add 15% of color
+        return addBrightness(color, 255 * 0.15);
     }
 
     function isLight() {
