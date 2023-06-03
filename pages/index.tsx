@@ -151,7 +151,7 @@ export default function Home() {
                     <div
                         className={styles.buttonWrapper}
                         style={{
-                            fontSize: `${getZoomLevel()}em`,
+                            fontSize: `${getZoomLevel() / 10}em`,
                         }}
                     >
                         {

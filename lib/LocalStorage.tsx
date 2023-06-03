@@ -3,7 +3,7 @@ export function getZoomLevel() {
     if (zoomLevel !== null) {
         return parseFloat(zoomLevel);
     }
-    return 1;
+    return 10;
 }
 
 export function setZoomLevel(zoomLevel: number) {

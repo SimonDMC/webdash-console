@@ -8,12 +8,12 @@ type ZoomButtonsProps = {
 
 const ZoomButtons = ({ rerender }: ZoomButtonsProps) => {
     function zoomIn() {
-        setZoomLevel(Math.min(getZoomLevel() + 0.1, 1.5));
+        setZoomLevel(Math.min(getZoomLevel() + 1, 15));
         rerender();
     }
 
     function zoomOut() {
-        setZoomLevel(Math.max(getZoomLevel() - 0.1, 0.4));
+        setZoomLevel(Math.max(getZoomLevel() - 1, 4));
         rerender();
     }
 
@@ -30,6 +30,7 @@ const ZoomButtons = ({ rerender }: ZoomButtonsProps) => {
         }
     };
 
+    // not using built-in react listeners because they can't be set as non-passive
     document.addEventListener("wheel", listener, {
         passive: false,
     });
