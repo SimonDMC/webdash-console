@@ -1,5 +1,5 @@
 import styles from "@/styles/Home.module.css";
-import { copy } from "@/lib/CopyCode";
+import { copy } from "@/util/CopyCode";
 import WebDashHead from "@/components/WebDashHead";
 import { useEffect } from "react";
 import { baseUrl } from ".";

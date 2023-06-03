@@ -1,12 +1,12 @@
+import { useState, useEffect } from "react";
 import Script from "next/script";
+import dynamic from "next/dynamic";
+import styles from "@/styles/Home.module.css";
 import Button from "@/components/Button";
 import AddButton from "@/components/AddButton";
-import styles from "@/styles/Home.module.css";
-import { useState, useEffect } from "react";
-import dynamic from "next/dynamic";
 import WebDashHead from "@/components/WebDashHead";
-import { getZoomLevel } from "@/lib/LocalStorage";
 import ZoomButtons from "@/components/ZoomButtons";
+import { getZoomLevel } from "@/util/LocalStorage";
 
 export const baseUrl = "http://localhost:26666";
 //export const baseUrl = "";

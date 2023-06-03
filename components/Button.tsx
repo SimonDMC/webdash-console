@@ -1,6 +1,6 @@
 import styles from "@/styles/Home.module.css";
 import { baseUrl, key } from "@/pages/index";
-import { addBrightness } from "@/lib/ColorUtil";
+import { addBrightness } from "@/util/ColorUtil";
 
 type ButtonProps = {
     name: string;

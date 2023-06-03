@@ -1,4 +1,4 @@
-import { getZoomLevel, setZoomLevel } from "@/lib/LocalStorage";
+import { getZoomLevel, setZoomLevel } from "@/util/LocalStorage";
 import styles from "@/styles/Home.module.css";
 import { useEffect } from "react";
 
