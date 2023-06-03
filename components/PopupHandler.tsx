@@ -30,7 +30,7 @@ export default function PopupHandler({ fetchData }: { fetchData: Function }) {
             margin: 0 10%;
         }
         .popup-content {
-            width: min(66vh, 90vw) !important;
+            width: min(66svh, 90vw) !important;
         }
         .popup-label {
             font-family: "Inter", sans-serif;

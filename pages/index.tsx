@@ -130,6 +130,13 @@ export default function Home() {
         setButtons(newBtnState);
     };
 
+    const [inFullscreen, setInFullscreen] = useState(false);
+    function enterFullscreen() {
+        const elem = document.documentElement;
+        inFullscreen ? document.exitFullscreen() : elem.requestFullscreen();
+        setInFullscreen(!inFullscreen);
+    }
+
     function rerender() {
         setButtons([...buttons]);
     }
@@ -146,7 +153,9 @@ export default function Home() {
             ></Script>
 
             <main className={styles.main}>
-                <h1 className={styles.title}>WebDash</h1>
+                <h1 className={styles.title} onDoubleClick={enterFullscreen}>
+                    WebDash
+                </h1>
                 <div className={styles.mainBox}>
                     <div
                         className={styles.buttonWrapper}
@@ -176,6 +185,14 @@ export default function Home() {
                     </div>
                     <ZoomButtons rerender={rerender} />
                 </div>
+                <a
+                    className={styles.credit}
+                    href="https://simondmc.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Made by SimonDMC
+                </a>
             </main>
         </>
     );

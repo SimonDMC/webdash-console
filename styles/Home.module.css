@@ -24,10 +24,20 @@
   letter-spacing: -.035em;
   text-shadow: 0 0 .2em #00000066;
   user-select: none;
+  cursor: pointer;
+}
+
+.credit {
+  color: #333d47;
+  font-weight: 500;
+  font-size: 1.4em;
+  position: absolute;
+  bottom: .5em;
+  text-decoration: none;
 }
 
 .mainBox {
-  height: 65.2vh;
+  height: 65.2svh;
   background-color: #333d47;
   width: 80.2vw;
   margin-bottom: 1.9em;
@@ -256,7 +266,11 @@
 /* mobile */
 @media (max-aspect-ratio: 1) {
   .mainBox {
-    height: 80vh;
+    height: 80svh;
     font-size: 2.4vw;
+  }
+
+  .credit {
+    bottom: .3em;
   }
 }
