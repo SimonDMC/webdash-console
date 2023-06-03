@@ -8,7 +8,7 @@ import WebDashHead from "@/components/WebDashHead";
 import ZoomButtons from "@/components/ZoomButtons";
 import { getZoomLevel } from "@/util/LocalStorage";
 
-export const baseUrl = "http://localhost:26666";
+export const baseUrl = "http://192.168.60.104:26666";
 //export const baseUrl = "";
 export let key = "";
 
@@ -156,34 +156,38 @@ export default function Home() {
                 <h1 className={styles.title} onDoubleClick={enterFullscreen}>
                     WebDash
                 </h1>
-                <div className={styles.mainBox}>
-                    <div
-                        className={styles.buttonWrapper}
-                        style={{
-                            fontSize: `${getZoomLevel() / 10}em`,
-                        }}
-                    >
-                        {
-                            // sort buttons by index
-                            [...buttons]
-                                .sort((a, b) => a.index - b.index)
-                                .map((button) => (
-                                    <Button
-                                        name={button.name}
-                                        id={button.id}
-                                        command={button.command}
-                                        color={button.color}
-                                        fetchData={fetchData}
-                                        key={button.id}
-                                        handleDrag={handleDrag}
-                                        handleDrop={handleDrop}
-                                        handleTouchMove={handleTouchMove}
-                                    />
-                                ))
-                        }
-                        <AddButton />
+                <div className={styles.mainBoxWrapper}>
+                    <div className={styles.zoomOverlay}>
+                        <ZoomButtons rerender={rerender} />
                     </div>
-                    <ZoomButtons rerender={rerender} />
+                    <div className={styles.mainBox}>
+                        <div
+                            className={styles.buttonWrapper}
+                            style={{
+                                fontSize: `${getZoomLevel() / 10}em`,
+                            }}
+                        >
+                            {
+                                // sort buttons by index
+                                [...buttons]
+                                    .sort((a, b) => a.index - b.index)
+                                    .map((button) => (
+                                        <Button
+                                            name={button.name}
+                                            id={button.id}
+                                            command={button.command}
+                                            color={button.color}
+                                            fetchData={fetchData}
+                                            key={button.id}
+                                            handleDrag={handleDrag}
+                                            handleDrop={handleDrop}
+                                            handleTouchMove={handleTouchMove}
+                                        />
+                                    ))
+                            }
+                            <AddButton />
+                        </div>
+                    </div>
                 </div>
                 <a
                     className={styles.credit}
