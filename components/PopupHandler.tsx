@@ -91,6 +91,7 @@ export default function PopupHandler({ fetchData }: { fetchData: Function }) {
         /* Color picker */
         .color {
             background-color: transparent;
+            cursor: pointer;
         }
         .color::-webkit-color-swatch-wrapper {
             padding: 0;
@@ -117,6 +118,11 @@ export default function PopupHandler({ fetchData }: { fetchData: Function }) {
             padding: .3em .5em;
             font-weight: 500;
             letter-spacing: .01em;
+            transition: background-color .2s;
+        }
+
+        .popup button.save:hover {
+            background-color: #4c5b6b;
         }
 
         /* Button ID */
@@ -140,7 +146,6 @@ export default function PopupHandler({ fetchData }: { fetchData: Function }) {
                 saveButton.classList.add("hasListener");
 
                 // add click event listener
-
                 saveButton.addEventListener("click", () => {
                     const name = document.querySelector(
                         ".popup.route-popup .name"
