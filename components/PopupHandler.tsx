@@ -30,7 +30,7 @@ export default function PopupHandler({ fetchData }: { fetchData: Function }) {
             margin: 0 10%;
         }
         .popup-content {
-            width: min(66svh, 90vw) !important;
+            width: min(38em, 90vw) !important;
         }
         .popup-label {
             font-family: "Inter", sans-serif;
@@ -55,6 +55,10 @@ export default function PopupHandler({ fetchData }: { fetchData: Function }) {
         }
 
         @media (max-aspect-ratio: 1/1) {
+            .popup {
+                font-size: 1em;
+            }
+
             .popup .row {
                 flex-direction: column;
                 align-items: flex-start;
