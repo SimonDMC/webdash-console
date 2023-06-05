@@ -7,10 +7,13 @@ import AddButton from "@/components/AddButton";
 import WebDashHead from "@/components/WebDashHead";
 import ZoomButtons from "@/components/ZoomButtons";
 import { getZoomLevel } from "@/util/LocalStorage";
+import { send } from "@/util/SocketHandler";
 
-export const baseUrl = "http://192.168.60.104:26666";
+export const webURL = "http://localhost:26666";
+export const socketURL = "ws://localhost:26667";
 //export const baseUrl = "";
 export let key = "";
+export let socket: WebSocket;
 
 const Popup = dynamic(() => import("../components/PopupHandler"), {
     ssr: false,
@@ -27,45 +30,18 @@ type ButtonType = {
 export default function Home() {
     const [buttons, setButtons] = useState<ButtonType[]>([]);
     useEffect(() => {
-        let interval: NodeJS.Timer;
-        // store key
-        key = new URLSearchParams(window.location.search).get("key") ?? "";
-        // run immediately
-        fetchData();
-        // figure out fetch period
-        fetch(`${baseUrl}/period`)
-            .then((res) => res.json())
-            .then((data) => {
-                console.info(`Fetching buttons every ${data.period}ms`);
-                // fetch buttons from server every period
-                interval = setInterval(fetchData, data.period);
-            });
-        return () => clearInterval(interval);
-    }, []);
+        socket = new WebSocket(socketURL);
 
-    function fetchData() {
-        fetch(`${baseUrl}/get`, {
-            headers: {
-                Authorization: key,
-            },
-        })
-            .then((res) => {
-                // refresh page if unauthorized or forbidden
-                if (res.status === 401 || res.status === 403) {
-                    window.location.reload();
-                } else {
-                    return res.json();
-                }
-            })
-            .then((data) => {
-                const stateEl = document.querySelector(".invalid");
-                if (!stateEl || stateEl.innerHTML === "false") {
-                    setButtons(data.buttons);
-                } else {
-                    stateEl.innerHTML = "false";
-                }
-            });
-    }
+        socket.onmessage = (e) => {
+            const data = JSON.parse(e.data);
+            setButtons(data.buttons);
+        };
+
+        socket.onclose = () => {
+            // refresh page if socket connection is closed
+            window.location.reload();
+        };
+    }, []);
 
     const [dragId, setDragId] = useState("");
     const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
@@ -95,17 +71,8 @@ export default function Home() {
         const dragBtnIndex = dragBtn!.index;
         const dropBtnIndex = dropBtn!.index;
 
-        // send drag request to server
-        fetch(`${baseUrl}/drag`, {
-            method: "POST",
-            body: `${dragBtnIndex}§§§${dropBtnIndex}`,
-            headers: {
-                Authorization: key,
-            },
-        });
-
-        // mark next incoming buttons as invalid (atrocious but react hooks don't work in setInterval)
-        document.querySelector(".invalid")!.innerHTML = "true";
+        // send drag request
+        send("drag", `${dragBtnIndex}§§§${dropBtnIndex}`);
 
         const newBtnState = [...buttons];
 
@@ -144,7 +111,7 @@ export default function Home() {
     return (
         <>
             <WebDashHead />
-            <Popup fetchData={fetchData} />
+            <Popup />
 
             {/* import fontawesome */}
             <Script
@@ -177,7 +144,6 @@ export default function Home() {
                                             id={button.id}
                                             command={button.command}
                                             color={button.color}
-                                            fetchData={fetchData}
                                             key={button.id}
                                             handleDrag={handleDrag}
                                             handleDrop={handleDrop}

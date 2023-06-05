@@ -1,13 +1,13 @@
 import styles from "@/styles/Home.module.css";
-import { baseUrl, key } from "@/pages/index";
+import { webURL, key } from "@/pages/index";
 import { addBrightness } from "@/util/ColorUtil";
+import { send } from "@/util/SocketHandler";
 
 type ButtonProps = {
     name: string;
     id: string;
     command: string;
     color: string;
-    fetchData: Function;
     handleDrag: Function;
     handleDrop: Function;
     handleTouchMove: Function;
@@ -18,7 +18,6 @@ const Button = ({
     id,
     command,
     color,
-    fetchData,
     handleDrag,
     handleDrop,
     handleTouchMove,
@@ -124,15 +123,7 @@ const Button = ({
                 if (
                     (e.target as HTMLElement).className.includes("fa-trash-can")
                 ) {
-                    await fetch(`${baseUrl}/delete`, {
-                        method: "DELETE",
-                        body: id,
-                        headers: {
-                            Authorization: key,
-                        },
-                    });
-                    // refresh
-                    fetchData();
+                    send("delete", id);
                     return;
                 }
 
@@ -142,13 +133,7 @@ const Button = ({
                         "buttonControls"
                     )
                 ) {
-                    fetch(`${baseUrl}/send`, {
-                        method: "POST",
-                        body: id,
-                        headers: {
-                            Authorization: key,
-                        },
-                    });
+                    send("press", id);
                 }
             }}
         >

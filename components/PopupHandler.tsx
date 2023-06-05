@@ -1,7 +1,8 @@
 import Popup from "@/lib/popup";
-import { baseUrl, key } from "@/pages";
+import { webURL, key } from "@/pages";
+import { send } from "@/util/SocketHandler";
 
-export default function PopupHandler({ fetchData }: { fetchData: Function }) {
+export default function PopupHandler() {
     new Popup({
         id: "route-popup",
         title: "My First Popup",
@@ -11,7 +12,6 @@ export default function PopupHandler({ fetchData }: { fetchData: Function }) {
             row§{popup-label}[Command:]<input class="command popup-input">
             row§{popup-label}[Color:]<input class="color popup-input" type="color">
             id§id-placeholder
-            invalid§false
             mid-row§{btn-save}[Save]
         </div>
         `,
@@ -133,12 +133,6 @@ export default function PopupHandler({ fetchData }: { fetchData: Function }) {
 
         .id {
             display: none;
-        }
-        
-        /* Invalid data carryover */
-        
-        .invalid {
-            display: none;
         }`,
         loadCallback: () => {
             const saveButton = document.querySelector(
@@ -183,26 +177,13 @@ export default function PopupHandler({ fetchData }: { fetchData: Function }) {
                         const commandVal = command.value.trim();
                         const colorVal = color.value;
 
-                        fetch(`${baseUrl}/add`, {
-                            method: "POST",
-                            body: `${nameVal}§§§${commandVal}§§§${colorVal}`,
-                            headers: {
-                                Authorization: key,
-                            },
-                        });
-                        // refresh
-                        fetchData();
+                        send("add", `${nameVal}§§§${commandVal}§§§${colorVal}`);
                     } else {
                         // editing a route
-                        fetch(`${baseUrl}/edit`, {
-                            method: "POST",
-                            body: `${id.innerHTML}§§§${name.value}§§§${command.value}§§§${color.value}`,
-                            headers: {
-                                Authorization: key,
-                            },
-                        });
-                        // refresh
-                        fetchData();
+                        send(
+                            "edit",
+                            `${id.innerHTML}§§§${name.value}§§§${command.value}§§§${color.value}`
+                        );
                     }
 
                     // close popup
