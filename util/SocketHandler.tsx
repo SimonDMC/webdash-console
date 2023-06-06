@@ -9,6 +9,7 @@ export function getSocketURL() {
     const socketPort = document.querySelector("meta[name='socket-port']");
     const host = window.location.hostname;
     const socketURL = `ws://${host}:${socketPort?.getAttribute("content")}`;
+    //const socketURL = `ws://${host}:26667`;
 
     return socketURL;
 }

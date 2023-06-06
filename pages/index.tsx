@@ -8,7 +8,9 @@ import WebDashHead from "@/components/WebDashHead";
 import ZoomButtons from "@/components/ZoomButtons";
 import { getZoomLevel } from "@/util/LocalStorage";
 import { getSocketURL, send } from "@/util/SocketHandler";
+
 export let socket: WebSocket;
+let loaded = false;
 
 const Popup = dynamic(() => import("../components/PopupHandler"), {
     ssr: false,
@@ -38,6 +40,7 @@ export default function Home() {
         socket.onmessage = (e) => {
             const data = JSON.parse(e.data);
             setButtons(data.buttons);
+            loaded = true;
         };
 
         socket.onclose = () => {
@@ -130,7 +133,11 @@ export default function Home() {
                     <div className={styles.zoomOverlay}>
                         <ZoomButtons rerender={rerender} />
                     </div>
-                    <div className={styles.mainBox}>
+                    <div
+                        className={
+                            loaded ? styles.mainBox : styles.mainBoxLoading
+                        }
+                    >
                         <div
                             className={styles.buttonWrapper}
                             style={{
