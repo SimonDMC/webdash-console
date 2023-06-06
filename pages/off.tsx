@@ -2,26 +2,15 @@ import styles from "@/styles/Home.module.css";
 import { copy } from "@/util/CopyCode";
 import WebDashHead from "@/components/WebDashHead";
 import { useEffect } from "react";
-import { webURL } from ".";
+import { getSocketURL } from "@/util/SocketHandler";
 
 export default function Home() {
     useEffect(() => {
-        let interval: NodeJS.Timer;
-        fetch(`${webURL}/period`)
-            .then((res) => res.json())
-            .then((data) => {
-                console.info(`Fetching buttons every ${data.period}ms`);
-                // fetch buttons from server every period
-                interval = setInterval(() => {
-                    fetch(`${webURL}/get`).then((res) => {
-                        // refresh page if successful
-                        if (res.status === 200) {
-                            window.location.reload();
-                        }
-                    });
-                }, data.period);
-            });
-        return () => clearInterval(interval);
+        const socket = new WebSocket(getSocketURL());
+        socket.onclose = () => {
+            // refresh page if socket connection is closed
+            window.location.reload();
+        };
     }, []);
     return (
         <>

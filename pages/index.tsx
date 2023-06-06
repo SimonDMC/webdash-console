@@ -7,12 +7,7 @@ import AddButton from "@/components/AddButton";
 import WebDashHead from "@/components/WebDashHead";
 import ZoomButtons from "@/components/ZoomButtons";
 import { getZoomLevel } from "@/util/LocalStorage";
-import { send } from "@/util/SocketHandler";
-
-export const webURL = "http://localhost:26666";
-export const socketURL = "ws://localhost:26667";
-//export const baseUrl = "";
-export let key = "";
+import { getSocketURL, send } from "@/util/SocketHandler";
 export let socket: WebSocket;
 
 const Popup = dynamic(() => import("../components/PopupHandler"), {
@@ -30,7 +25,15 @@ type ButtonType = {
 export default function Home() {
     const [buttons, setButtons] = useState<ButtonType[]>([]);
     useEffect(() => {
-        socket = new WebSocket(socketURL);
+        socket = new WebSocket(getSocketURL());
+
+        socket.onopen = () => {
+            const key = new URLSearchParams(window.location.search).get("key");
+            if (key) {
+                // send auth request
+                send("auth", key);
+            }
+        };
 
         socket.onmessage = (e) => {
             const data = JSON.parse(e.data);

@@ -1,5 +1,4 @@
 import Popup from "@/lib/popup";
-import { webURL, key } from "@/pages";
 import { send } from "@/util/SocketHandler";
 
 export default function PopupHandler() {

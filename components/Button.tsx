@@ -1,5 +1,4 @@
 import styles from "@/styles/Home.module.css";
-import { webURL, key } from "@/pages/index";
 import { addBrightness } from "@/util/ColorUtil";
 import { send } from "@/util/SocketHandler";
 
