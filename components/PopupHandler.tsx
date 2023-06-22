@@ -7,9 +7,9 @@ export default function PopupHandler() {
         title: "My First Popup",
         content: `
         <div class="popup-wrapper">
-            row§{popup-label}[Name:]<input class="name popup-input">
-            row§{popup-label}[Command:]<input class="command popup-input">
-            row§{popup-label}[Color:]<input class="color popup-input" type="color">
+            row§{popup-label}[Name:]<input id="name" class="popup-input" autocomplete="off">
+            row§{popup-label}[Command:]<input id="command" class="popup-input" autocomplete="off">
+            row§{popup-label}[Color:]<input id="color" class="popup-input" type="color">
             id§id-placeholder
             mid-row§{btn-save}[Save]
         </div>
@@ -68,14 +68,14 @@ export default function PopupHandler() {
             }
         }
 
-        .popup-input:not(.color) {
+        .popup-input:not(#color) {
             background-color: #333d46;
             color: #fff;
             padding-left: .3em;
             font-family: "Minecraft", monospace;
         }
 
-        .popup .row:has(.color) {
+        .popup .row:has(#color) {
             margin-bottom: .9em;
         }
 
@@ -92,14 +92,14 @@ export default function PopupHandler() {
         }
 
         /* Color picker */
-        .color {
+        #color {
             background-color: transparent;
             cursor: pointer;
         }
-        .color::-webkit-color-swatch-wrapper {
+        #color::-webkit-color-swatch-wrapper {
             padding: 0;
         }
-        .color::-webkit-color-swatch {
+        #color::-webkit-color-swatch {
             border: none;
             border-radius: .3em;
         }
@@ -145,13 +145,13 @@ export default function PopupHandler() {
                 // add click event listener
                 saveButton.addEventListener("click", () => {
                     const name = document.querySelector(
-                        ".popup.route-popup .name"
+                        ".popup.route-popup #name"
                     )! as HTMLInputElement;
                     const command = document.querySelector(
-                        ".popup.route-popup .command"
+                        ".popup.route-popup #command"
                     )! as HTMLInputElement;
                     const color = document.querySelector(
-                        ".popup.route-popup .color"
+                        ".popup.route-popup #color"
                     )! as HTMLInputElement;
                     const id = document.querySelector(
                         ".popup.route-popup .id"

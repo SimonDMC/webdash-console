@@ -92,17 +92,17 @@ const Button = ({
                     el.classList.add("fade-in");
 
                     const nameEl = document.querySelector(
-                        ".popup.route-popup .name"
+                        ".popup.route-popup #name"
                     )! as HTMLInputElement;
                     nameEl.value = name;
 
                     const commandEl = document.querySelector(
-                        ".popup.route-popup .command"
+                        ".popup.route-popup #command"
                     )! as HTMLInputElement;
                     commandEl.value = command;
 
                     const colorEl = document.querySelector(
-                        ".popup.route-popup .color"
+                        ".popup.route-popup #color"
                     )! as HTMLInputElement;
                     colorEl.value = color;
 
