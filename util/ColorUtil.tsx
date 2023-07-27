@@ -5,11 +5,19 @@ export function addBrightness(color: string, amount: number) {
 
     const roundedAm = Math.round(amount);
 
-    const newRed = Math.min(255, red + roundedAm);
-    const newGreen = Math.min(255, green + roundedAm);
-    const newBlue = Math.min(255, blue + roundedAm);
+    let newRed = red + roundedAm;
+    let newGreen = green + roundedAm;
+    let newBlue = blue + roundedAm;
 
-    return `#${newRed.toString(16)}${newGreen.toString(16)}${newBlue.toString(
-        16
-    )}`;
+    // clamp between 0 and 255
+    newRed = Math.min(Math.max(newRed, 0), 255);
+    newGreen = Math.min(Math.max(newGreen, 0), 255);
+    newBlue = Math.min(Math.max(newBlue, 0), 255);
+
+    // ensure hex is 2 digits
+    const redAsHex = newRed.toString(16).padStart(2, "0");
+    const greenAsHex = newGreen.toString(16).padStart(2, "0");
+    const blueAsHex = newBlue.toString(16).padStart(2, "0");
+
+    return `#${redAsHex}${greenAsHex}${blueAsHex}`;
 }
