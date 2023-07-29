@@ -7,9 +7,9 @@ export default function PopupHandler() {
         title: "My First Popup",
         content: `
         <div class="popup-wrapper">
-            row§{popup-label}[Name:]<input id="name" class="popup-input" autocomplete="off">
-            row§{popup-label}[Command:]<input id="command" class="popup-input" autocomplete="off">
-            row§{popup-label}[Color:]<input id="color" class="popup-input" type="color">
+            row§<label for="name" class="popup-label">Name:</label><input id="name" class="popup-input" autocomplete="off">
+            row§<label for="command" class="popup-label">Command:</label><input id="command" class="popup-input" autocomplete="off">
+            row§<label for="color" class="popup-label">Color:</label><input id="color" class="popup-input" type="color">
             id§id-placeholder
             mid-row§{btn-save}[Save]
         </div>
@@ -134,9 +134,7 @@ export default function PopupHandler() {
             display: none;
         }`,
         loadCallback: () => {
-            const saveButton = document.querySelector(
-                ".popup.route-popup .save"
-            )!;
+            const saveButton = document.querySelector(".popup.route-popup .save")!;
 
             // check if save button has click event listener
             if (!saveButton.classList.contains("hasListener")) {
@@ -144,24 +142,13 @@ export default function PopupHandler() {
 
                 // add click event listener
                 saveButton.addEventListener("click", () => {
-                    const name = document.querySelector(
-                        ".popup.route-popup #name"
-                    )! as HTMLInputElement;
-                    const command = document.querySelector(
-                        ".popup.route-popup #command"
-                    )! as HTMLInputElement;
-                    const color = document.querySelector(
-                        ".popup.route-popup #color"
-                    )! as HTMLInputElement;
-                    const id = document.querySelector(
-                        ".popup.route-popup .id"
-                    )!;
+                    const name = document.querySelector(".popup.route-popup #name")! as HTMLInputElement;
+                    const command = document.querySelector(".popup.route-popup #command")! as HTMLInputElement;
+                    const color = document.querySelector(".popup.route-popup #color")! as HTMLInputElement;
+                    const id = document.querySelector(".popup.route-popup .id")!;
 
                     // enforce fields
-                    if (
-                        name.value.trim() === "" ||
-                        command.value.trim() === ""
-                    ) {
+                    if (name.value.trim() === "" || command.value.trim() === "") {
                         return;
                     }
 
@@ -179,16 +166,11 @@ export default function PopupHandler() {
                         send("add", `${nameVal}§§§${commandVal}§§§${colorVal}`);
                     } else {
                         // editing a route
-                        send(
-                            "edit",
-                            `${id.innerHTML}§§§${name.value}§§§${command.value}§§§${color.value}`
-                        );
+                        send("edit", `${id.innerHTML}§§§${name.value}§§§${command.value}§§§${color.value}`);
                     }
 
                     // close popup
-                    const closeButton = document.querySelector(
-                        ".popup.route-popup .popup-close"
-                    )! as HTMLButtonElement;
+                    const closeButton = document.querySelector(".popup.route-popup .popup-close")! as HTMLButtonElement;
                     closeButton.click();
                 });
             }
